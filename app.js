@@ -10,6 +10,8 @@ var regRouter = require('./routes/reg');
 var loginRouter = require('./routes/login');
 var studentsRouter = require('./routes/students');
 var movieRouter = require('./routes/movie');
+
+const session = require('express-session'); //新增express-session
 var app = express();
 
 // view engine setup
@@ -20,6 +22,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//新增express-session
+app.use(session({
+  secret:"lovo",  //加密字符串
+  resave:true,   // 是否强制保存session
+  saveUninitialized:true,
+}))
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
