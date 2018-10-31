@@ -9,7 +9,7 @@ router.post("/lg",async function (req, res) {
   let body = req.body;
 //   console.log("测试接收请求数据：",body.phone,body.pwd);
   let data = await client.get('/users', { userphone:body.phone,password:body.pwd});
-      // console.log(data[0],data.length);
+      console.log(data[0]);
       if (data.length > 0) {
           if(data[0].privilege == "1"){   // console.log("管理员身份")
                 req.session.user = data[0]; 
@@ -18,7 +18,8 @@ router.post("/lg",async function (req, res) {
              
           }else if(data[0].privilege == "0"){   // console.log("商户身份")
                 req.session.user = data[0];
-                res.send({ status: 1 });//匹配 商户成功
+                data[0].status=1
+                res.send(data[0]);//匹配 商户成功
                
           }
         

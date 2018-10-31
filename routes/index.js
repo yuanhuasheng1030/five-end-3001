@@ -23,7 +23,7 @@ router.post('/upload', function (req, res) {
       if (err) {
           res.send(err)
       } else {
-          res.send(path.basename(files.file[0].path));
+          res.send(path.basename(files.uploadHeader[0].path));
       }
   })
 });

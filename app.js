@@ -10,9 +10,17 @@ var regRouter = require('./routes/reg');
 var loginRouter = require('./routes/login');
 var studentsRouter = require('./routes/students');
 var movieRouter = require('./routes/movie');
-
+var trademanageRouter = require('./routes/trademanage');
+var servicesRouter = require('./routes/services');
+var ordersRouter = require('./routes/orders');
+var backStoresRouter = require('./routes/backStores');
+var backUsersRouter = require('./routes/backUsers');
+var petsKeepersRouter = require('./routes/petsKeepers');
+var suppliersRouter = require('./routes/suppliers');
+var lcRouter = require('./routes/lcRouter');
 const session = require('express-session'); //新增express-session
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,7 +30,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(express.static(path.join(__dirname, 'public')));
 //新增express-session
 app.use(session({
   secret:"lovo",  //加密字符串
@@ -30,15 +38,20 @@ app.use(session({
   saveUninitialized:true,
 }))
 
-
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/reg', regRouter);
 app.use('/login', loginRouter);
 app.use('/students', studentsRouter);
 app.use('/movie', movieRouter);
+app.use('/lcRouter', lcRouter);
+app.use('/services', servicesRouter);
+app.use('/orders', ordersRouter);
+app.use('/trademanage', trademanageRouter);
+app.use('/backStores', backStoresRouter);
+app.use('/backUsers', backUsersRouter);
+app.use('/petsKeepers', petsKeepersRouter);
+app.use('/suppliers', suppliersRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
